@@ -37,8 +37,26 @@ main{
     display: flex;
 }
 
+main .box{
+    width: 15rem;
+    height: 25rem;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: 30rem 15rem;
+    background-position: center;
+}
+
 main .box h1{
-    padding: 2rem 0;
+    /* padding: 2rem 0; */
+    color: white;
+    
+}
+
+main .box{
+    background-image: url();
 }
 
 footer{
