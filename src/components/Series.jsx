@@ -88,7 +88,6 @@ const Series = () => {
                     height={200}
                     src={film.images["Poster Art"].url}
                     alt=""
-                    
                   />
                   <p>{film.title}</p>
                 </div>
