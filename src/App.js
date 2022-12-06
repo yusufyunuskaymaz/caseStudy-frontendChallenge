@@ -1,9 +1,14 @@
-import './App.css';
+import "./App.css";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <h1>Frontend Project</h1>
-  )
+    <>
+      <Header />
+      <Navbar />
+    </>
+  );
 }
 
 export default App;

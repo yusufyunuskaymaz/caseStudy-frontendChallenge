@@ -1,0 +1,29 @@
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: lightblue;
+    padding: 1rem 0;
+}
+
+header span{
+    margin-right: 1.5rem;
+}
+
+header button{
+    background-color: black;
+    color: white;
+    padding: .5rem 1rem;
+    cursor: pointer;    
+}
+
+nav{
+    background-color: lightslategray;
+    padding: 1rem 0;
+}
+
+nav p{
+    margin-left: 19rem;
+    color: white;
+    font-size: 1.5rem;
+}
