@@ -1,3 +1,8 @@
+.container{
+    width: 1200px;
+    margin: 0 auto;
+}
+
 header{
     display: flex;
     align-items: center;
@@ -23,7 +28,62 @@ nav{
 }
 
 nav p{
-    margin-left: 19rem;
+    /* margin-left: 19rem; */
     color: white;
     font-size: 1.5rem;
+}
+
+main{
+    display: flex;
+}
+
+main .box h1{
+    padding: 2rem 0;
+}
+
+footer{
+    background-color: black;
+    color: gray;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem 0;
+    padding: 2rem 0;
+}
+
+.top ul{
+    margin-bottom: 1rem;
+}
+
+.social{
+    display: flex;
+    gap:0 1rem;
+    font-size: 2rem;
+    color: white;
+}
+
+footer ul{
+    display: flex;
+    list-style-type: none;
+
+}
+
+footer  img{
+    width: 10rem;
+    max-height:4rem;
+}
+
+footer .social img{
+    width: 5rem;
+    height: 2rem;
+}
+
+footer .app-store{
+    display: flex;
+    align-items: center;
+}
+
+.bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
