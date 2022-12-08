@@ -11,7 +11,8 @@ const Series = () => {
     const url =
       "https://raw.githubusercontent.com/pankod/frontend-challenge/master/feed/sample.json";
     try {
-      axios.get(url).then((res) => setFilmData(res));
+      axios.get(url).then((res) => setFilmData(res.data.entries));
+      // console.log(filmData, "burası");
     } catch (error) {
       console.log(error.message);
     }
@@ -23,73 +24,100 @@ const Series = () => {
 
   const [searchInput, setSearchInput] = useState("");
 
+  const handleSort = (event) => {
+    const options = {
+      "a-z": [...filmData].sort((a, b) => (a.title < b.title ? -1 : 1)),
+      "z-a": [...filmData].sort((a, b) => (a.title < b.title ? 1 : -1)),
+      "1-100": [...filmData].sort((a, b) => (a.releaseYear - b.releaseYear)),
+      "100-1": [...filmData].sort((a, b) => (b.releaseYear - a.releaseYear)),
+    };
+    setFilmData(options[event.target.value]);
+  };
+
+  // const handleClick = (opt) => {
+  //   if (opt == "z-a") {
+  //     setFilterFilm("z-a");
+  //   } else if (opt == "a-z") {
+  //     setFilterFilm("a-z");
+  //   } else if (opt == "1-100") {
+  //     setFilterFilm("1-100");
+  //   } else if (opt == "100-1") {
+  //     setFilterFilm("100-1");
+  //   }
+  // };
+
   return (
     <div className="container">
-      <div className="top-navbar d-flex justify-content-between mt-3">
-        <div className="input-group w-lg-25">
-          <input
-            type="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Search..."
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-          <button className="btn btn-primary">Search</button>
+      <div className="row mt-4 justify-content-between mb-3">
+        <div className="col-lg-3">
+          <div className="top-navbar d-flex justify-content-between">
+            <div className="input-group">
+              <input
+                type="email"
+                className="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Search..."
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+              <button className="btn btn-primary">Search</button>
+            </div>
+          </div>
         </div>
 
-        <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
+        <div className="col-lg-3">
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onChange={handleSort}
           >
-            Dropdown button
-          </button>
-          <ul className="dropdown-menu">
-            <li>
-              <a className="dropdown-item" href="#">
-                Action
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Another action
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Something else here
-              </a>
-            </li>
-          </ul>
+            <option selected disabled>Sort By Name and Date</option>
+            <option value="a-z">Sort A-Z</option>
+            <option value="z-a">Sort Z-A</option>
+            <option value="1-100">Sort 1-100</option>
+            <option value="100-1">Sort 100-1</option>
+          </select>
         </div>
       </div>
 
-      <div className="mt-2">
-        <button className="btn btn-success me-2">Go Home</button>
-        <button className="btn btn-warning" onClick={() => navigate(-1)}>
-          Go Back
-        </button>
+      <div className="row">
+        <div className="mt-2">
+          <button className="btn btn-success me-2">Go Home</button>
+          <button className="btn btn-warning" onClick={() => navigate(-1)}>
+            Go Back
+          </button>
+        </div>
       </div>
       <div className="row py-5">
-        {filmData?.data?.entries
-          ?.filter((film) => {
-              if (film.title.toLowerCase().includes(searchInput)) {
-                return film;
-              }
+        {filmData
+          .filter((film) => {
+            if (film.title.toLowerCase().includes(searchInput)) {
+              return film;
+            }
           })
+          // .sort((a, b) => {
+          //   if (filterFilm == "z-a") {
+          //     return a.title > b.title ? -1 : 1;
+          //   } else if (filterFilm == "a-z") {
+          //     return a.title > b.title ? 1 : -1;
+          //   } else if (filterFilm == "1-100") {
+          //     return a.releaseYear - b.releaseYear;
+          //   } else if (filterFilm == "100-1") {
+          //     return b.releaseYear - a.releaseYear;
+          //   }
+          // })
           .map((film, index) => {
             return (
               <div className="col col-lg-2" key={index}>
                 <div className="series-box">
                   <img
                     height={200}
-                    src={film.images["Poster Art"].url}
+                    src={film.images["Poster Art"].url || ""}
                     alt=""
+                    style={{ opacity: "0.02" }}
                   />
                   <p>{film.title}</p>
+                  <span className="text-danger">{film.releaseYear}</span>
                 </div>
               </div>
             );
