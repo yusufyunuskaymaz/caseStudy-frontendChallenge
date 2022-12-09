@@ -40,13 +40,11 @@ const Series = () => {
 
   const addFavs = (index) => {
     if (fav.includes(index)) {
-      console.log("burası");
       dispatch(removeFav(index));
-    } else if(!fav.includes(index)) {
+    } else if (!fav.includes(index)) {
       dispatch(setFav(index));
-      console.log("deneme")
+      console.log(fav, "fav")
     }
-
   };
 
   // spagetti code example :)
@@ -125,11 +123,7 @@ const Series = () => {
           // })
           .map((film, index) => {
             return (
-              <div
-                
-                className="col col-lg-2"
-                key={index}
-              >
+              <div className="col col-lg-2" key={index}>
                 <div className="series-box">
                   <img
                     height={200}
@@ -142,7 +136,9 @@ const Series = () => {
                     style={{ width: "80%" }}
                     className="d-flex align-items-center justify-content-between"
                   >
-                    <span className="text-danger">{film.releaseYear} -- {index}</span>
+                    <span className="text-danger">
+                      {film.releaseYear} -- {index}
+                    </span>
                     <span>
                       {!fav.includes(index) && (
                         <i
@@ -155,11 +151,11 @@ const Series = () => {
                     </span>
                     <span>
                       {fav.includes(index) && (
-                        <i className="fa-solid fa-star fs-3"
-                        style={{color:"gold"}}
-                        onClick={() => addFavs(index)}
-                        // onMouseOver={()=>console.log(index)}
-
+                        <i
+                          className="fa-solid fa-star fs-3"
+                          style={{ color: "gold" }}
+                          onClick={() => addFavs(index)}
+                          // onMouseOver={()=>console.log(index)}
                         ></i>
                       )}
                     </span>

@@ -12,7 +12,8 @@ const favSlice = createSlice({
             state.fav = [...state.fav, payload]
         },
         removeFav : (state, {payload})=>{
-            state.fav.splice(payload,1)
+            const index = state.fav.indexOf(payload);
+            state.fav.splice(index,1)
         }
     }
 })
