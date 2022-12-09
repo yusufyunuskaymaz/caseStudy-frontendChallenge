@@ -13,8 +13,9 @@ const Series = () => {
     const url =
       "https://raw.githubusercontent.com/pankod/frontend-challenge/master/feed/sample.json";
     try {
-      axios.get(url).then((res) => setFilmData(res.data.entries));
-      console.log(filmData, "burası");
+      axios.get(url).then((res) => setFilmData(res.data.entries.map((film,index)=>{
+        return {...film, id:index+1}
+      })));
     } catch (error) {
       console.log(error.message);
     }
@@ -38,11 +39,11 @@ const Series = () => {
 
   const { fav } = useSelector((state) => state.fav);
 
-  const addFavs = (index) => {
-    if (fav.includes(index)) {
-      dispatch(removeFav(index));
-    } else if (!fav.includes(index)) {
-      dispatch(setFav(index));
+  const addFavs = (id) => {
+    if (fav.includes(id)) {
+      dispatch(removeFav(id));
+    } else if (!fav.includes(id)) {
+      dispatch(setFav(id));
       console.log(fav, "fav")
     }
   };
@@ -59,6 +60,7 @@ const Series = () => {
   //     setFilterFilm("100-1");
   //   }
   // };
+  console.log(filmData, "burası");
 
   return (
     <div className="container">
@@ -123,13 +125,13 @@ const Series = () => {
           // })
           .map((film, index) => {
             return (
-              <div className="col col-lg-2" key={index}>
+              <div className="col col-lg-2" key={film.id}>
                 <div className="series-box">
                   <img
                     height={200}
                     src={film.images["Poster Art"].url}
                     alt=""
-                    style={{ opacity: "0.1" }}
+                    style={{ opacity: "0.01" }}
                   />
                   <p>{film.title}</p>
                   <div
@@ -137,24 +139,24 @@ const Series = () => {
                     className="d-flex align-items-center justify-content-between"
                   >
                     <span className="text-danger">
-                      {film.releaseYear} -- {index}
+                      {film.releaseYear} -- {film.id}
                     </span>
                     <span>
-                      {!fav.includes(index) && (
+                      {!fav.includes(film.id) && (
                         <i
                           className="fa-regular fa-star fs-3"
                           style={{ color: "gold" }}
-                          onClick={() => addFavs(index)}
+                          onClick={() => addFavs(film.id)}
                           // onMouseOver={()=>console.log(index)}
                         ></i>
                       )}
                     </span>
                     <span>
-                      {fav.includes(index) && (
+                      {fav.includes(film.id) && (
                         <i
                           className="fa-solid fa-star fs-3"
                           style={{ color: "gold" }}
-                          onClick={() => addFavs(index)}
+                          onClick={() => addFavs(film.id)}
                           // onMouseOver={()=>console.log(index)}
                         ></i>
                       )}
