@@ -12,7 +12,7 @@ const Footer = () => {
     <footer>
       <div className="container">
       <div className="top">
-        <ul>
+        <ul className="p-0">
           <li>
             <a>Home | </a>
           </li>

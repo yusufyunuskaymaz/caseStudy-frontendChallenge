@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
-import { useQuery } from "react-query";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Series = () => {
@@ -28,8 +27,8 @@ const Series = () => {
     const options = {
       "a-z": [...filmData].sort((a, b) => (a.title < b.title ? -1 : 1)),
       "z-a": [...filmData].sort((a, b) => (a.title < b.title ? 1 : -1)),
-      "1-100": [...filmData].sort((a, b) => (a.releaseYear - b.releaseYear)),
-      "100-1": [...filmData].sort((a, b) => (b.releaseYear - a.releaseYear)),
+      "1-100": [...filmData].sort((a, b) => a.releaseYear - b.releaseYear),
+      "100-1": [...filmData].sort((a, b) => b.releaseYear - a.releaseYear),
     };
     setFilmData(options[event.target.value]);
   };
@@ -71,18 +70,20 @@ const Series = () => {
             aria-label="Default select example"
             onChange={handleSort}
           >
-            <option selected disabled>Sort By Name and Date</option>
-            <option value="a-z">Sort A-Z</option>
-            <option value="z-a">Sort Z-A</option>
-            <option value="1-100">Sort 1-100</option>
-            <option value="100-1">Sort 100-1</option>
+            <option selected disabled>
+              Sort By Name and Date
+            </option>
+            <option value="a-z">Sort By Title A-Z</option>
+            <option value="z-a">Sort By Title Z-A</option>
+            <option value="1-100">Sort By Release Year 1-100</option>
+            <option value="100-1">Sort By Release Year 100-1</option>
           </select>
         </div>
       </div>
 
       <div className="row">
         <div className="mt-2">
-          <button className="btn btn-success me-2">Go Home</button>
+          <button className="btn btn-success me-2"  onClick={() => navigate("/")}>Go Home</button>
           <button className="btn btn-warning" onClick={() => navigate(-1)}>
             Go Back
           </button>
@@ -91,9 +92,7 @@ const Series = () => {
       <div className="row py-5">
         {filmData
           .filter((film) => {
-            if (film.title.toLowerCase().includes(searchInput)) {
-              return film;
-            }
+            return film.title.toLowerCase().includes(searchInput);
           })
           // .sort((a, b) => {
           //   if (filterFilm == "z-a") {
