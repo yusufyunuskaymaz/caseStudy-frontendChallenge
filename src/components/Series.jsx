@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {setFav} from "../features/favSlice"
+import { removeFav, setFav } from "../features/favSlice";
 
 const Series = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [filmData, setFilmData] = useState([]);
   const fetchData = () => {
@@ -14,7 +14,7 @@ const Series = () => {
       "https://raw.githubusercontent.com/pankod/frontend-challenge/master/feed/sample.json";
     try {
       axios.get(url).then((res) => setFilmData(res.data.entries));
-      // console.log(filmData, "burası");
+      console.log(filmData, "burası");
     } catch (error) {
       console.log(error.message);
     }
@@ -35,13 +35,20 @@ const Series = () => {
     };
     setFilmData(options[event.target.value]);
   };
-  
-  const addFavs = ()=>{
-    dispatch(setFav())
-  }
 
+  const { fav } = useSelector((state) => state.fav);
 
-  // spagetti code example :) 
+  const addFavs = (index) => {
+    if (fav.includes(index)) {
+      console.log("burası");
+      dispatch(removeFav(index));
+    } else if(!fav.includes(index)) {
+      dispatch(setFav(index));
+    }
+
+  };
+
+  // spagetti code example :)
   // const handleClick = (opt) => {
   //   if (opt == "z-a") {
   //     setFilterFilm("z-a");
@@ -117,16 +124,45 @@ const Series = () => {
           // })
           .map((film, index) => {
             return (
-              <div onClick={()=>addFavs()} className="col col-lg-2" key={index}>
+              <div
+                
+                className="col col-lg-2"
+                key={index}
+              >
                 <div className="series-box">
                   <img
                     height={200}
-                    src={film.images["Poster Art"].url || ""}
+                    src={film.images["Poster Art"].url}
                     alt=""
-                    style={{ opacity: "0.02" }}
+                    style={{ opacity: "0.1" }}
                   />
                   <p>{film.title}</p>
-                  <span className="text-danger">{film.releaseYear}</span>
+                  <div
+                    style={{ width: "80%" }}
+                    className="d-flex align-items-center justify-content-between"
+                  >
+                    <span className="text-danger">{film.releaseYear} -- {index}</span>
+                    <span>
+                      {!fav.includes(index) && (
+                        <i
+                          className="fa-regular fa-star fs-3"
+                          style={{ color: "gold" }}
+                          onClick={() => addFavs(index)}
+                          // onMouseOver={()=>console.log(index)}
+                        ></i>
+                      )}
+                    </span>
+                    <span>
+                      {fav.includes(index) && (
+                        <i className="fa-solid fa-star fs-3"
+                        style={{color:"gold"}}
+                        onClick={() => addFavs(index)}
+                        // onMouseOver={()=>console.log(index)}
+
+                        ></i>
+                      )}
+                    </span>
+                  </div>
                 </div>
               </div>
             );

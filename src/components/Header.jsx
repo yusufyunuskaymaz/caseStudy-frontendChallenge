@@ -13,7 +13,7 @@ const Header = () => {
   }
   // console.log(user);
   const {user, setUser} = useContext(LoginContext)
-  console.log(fav, "burası fav")
+  // console.log(fav, "burası fav")
 
 
   return (
@@ -21,12 +21,13 @@ const Header = () => {
       <div className="container header">
         <div className="logo">
           <Link to="/home" style={{textDecoration:"none", color:"black"}}>
-            <h2>Logo Area {fav}</h2>
+            <h2>Logo Area </h2>
           </Link>
         </div>
         <div className="login">
-          <span type="button" onClick={()=>handleSubmit()}>{ user.email && "Logout"}</span>
+          <span className="me-0" type="button" onClick={()=>handleSubmit()}>{ user.email && "Logout"}</span>
           <span type="button" onClick={()=>navigate("/login")}>{ !user.email && "Login"}</span>
+          {fav && <span class="badge bg-danger fs-6 me-1">{fav.length}</span>}
           <button>Start Your Free Trial</button>
         </div>
       </div>
