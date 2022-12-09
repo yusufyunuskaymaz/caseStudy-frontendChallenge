@@ -14,7 +14,7 @@ const Home = () => {
             backgroundImage: `url(${PlaceHolder})`,
             backgroundColor: "black",
           }}
-          onClick={()=>navigate("series")}
+          onClick={()=>navigate("/series")}
         >
           <h1 className="display-2">Series</h1>
         </div>
@@ -25,7 +25,7 @@ const Home = () => {
             backgroundImage: `url(${PlaceHolder})`,
             backgroundColor: "black",
           }}
-          onClick={()=>navigate("series")}
+          onClick={()=>navigate("/series")}
         >
           <h1 className="display-2">Movies</h1>
         </div>

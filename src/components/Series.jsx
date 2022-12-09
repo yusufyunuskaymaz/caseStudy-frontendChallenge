@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {setFav} from "../features/favSlice"
 
 const Series = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const [filmData, setFilmData] = useState([]);
   const fetchData = () => {
@@ -32,7 +35,13 @@ const Series = () => {
     };
     setFilmData(options[event.target.value]);
   };
+  
+  const addFavs = ()=>{
+    dispatch(setFav())
+  }
 
+
+  // spagetti code example :) 
   // const handleClick = (opt) => {
   //   if (opt == "z-a") {
   //     setFilterFilm("z-a");
@@ -83,7 +92,7 @@ const Series = () => {
 
       <div className="row">
         <div className="mt-2">
-          <button className="btn btn-success me-2"  onClick={() => navigate("/")}>Go Home</button>
+          {/* <button className="btn btn-success me-2"  onClick={() => navigate("/")}>Go Home</button> */}
           <button className="btn btn-warning" onClick={() => navigate(-1)}>
             Go Back
           </button>
@@ -94,6 +103,7 @@ const Series = () => {
           .filter((film) => {
             return film.title.toLowerCase().includes(searchInput);
           })
+          //spagetti code
           // .sort((a, b) => {
           //   if (filterFilm == "z-a") {
           //     return a.title > b.title ? -1 : 1;
@@ -107,7 +117,7 @@ const Series = () => {
           // })
           .map((film, index) => {
             return (
-              <div className="col col-lg-2" key={index}>
+              <div onClick={()=>addFavs()} className="col col-lg-2" key={index}>
                 <div className="series-box">
                   <img
                     height={200}

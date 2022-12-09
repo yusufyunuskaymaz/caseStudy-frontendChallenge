@@ -12,7 +12,7 @@ const Footer = () => {
     <footer>
       <div className="container">
       <div className="top">
-        <ul className="p-0">
+        <ul className="p-0 text-light">
           <li>
             <a>Home | </a>
           </li>
@@ -32,7 +32,7 @@ const Footer = () => {
             <a>Management</a>
           </li>
         </ul>
-        <p>Copyright © 2016 DEMO Streaming. All Rights Reserved.</p>
+        <p className="">Copyright © 2016 DEMO Streaming. All Rights Reserved.</p>
       </div>
       <div className="bottom">
         <div className="social">
