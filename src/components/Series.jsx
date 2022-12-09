@@ -44,6 +44,7 @@ const Series = () => {
       dispatch(removeFav(index));
     } else if(!fav.includes(index)) {
       dispatch(setFav(index));
+      console.log("deneme")
     }
 
   };
