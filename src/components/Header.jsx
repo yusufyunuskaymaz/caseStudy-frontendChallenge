@@ -13,6 +13,7 @@ const Header = () => {
   const navigate = useNavigate();
   const handleSubmit = () => {
     setUser({ email: "", password: "" });
+    localStorage.setItem("user", JSON.stringify({ email: "", password: "" }))
     navigate("/login");
   };
   // console.log(user);
@@ -40,8 +41,8 @@ const Header = () => {
           <span type="button" onClick={() => navigate("/login")}>
             {!user.email && "Login"}
           </span>
-          {fav && <span className="badge bg-success fs-6 me-1">{fav.length}</span>}
-          <i type="button" onClick={()=>handleClear()} className="fa-solid fa-trash-can me-2 text-danger"></i>
+          {fav && <span class="badge bg-success fs-6 me-1">{fav.length}</span>}
+          <i type="button" onClick={()=>handleClear()} class="fa-solid fa-trash-can me-2 text-danger"></i>
           <button>Start Your Free Trial</button>
         </div>
       </div>

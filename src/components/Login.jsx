@@ -17,7 +17,6 @@ const Login = () => {
           errors.email = "Please enter a mail";
         } else if (!values.password) {
           errors.password = "Please enter a passoword";
-          // alert("Please enter password")
         } else if (
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
         ) {
@@ -27,9 +26,14 @@ const Login = () => {
       }}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          if (values.email == realUser.email && values.password == realUser.password) {
+          if (
+            values.email == realUser.email &&
+            values.password == realUser.password
+          ) {
             navigate("/home");
-            setUser(values)
+            setUser(values);
+            const user = { email: values.email, password: values.password };
+            localStorage.setItem("user", JSON.stringify(user));
           } else {
             console.log("k.adı ya da şifre yanlış");
           }
@@ -58,8 +62,13 @@ const Login = () => {
                   className="d-flex flex-column align-items-center"
                   onSubmit={handleSubmit}
                 >
-                  <p className="m-0"><span className="text-danger"> username:</span>admin@gmail.com</p>
-                  <p className="p"><span className="text-danger"> password:</span> admin</p>
+                  <p className="m-0">
+                    <span className="text-danger"> username:</span>
+                    admin@gmail.com
+                  </p>
+                  <p className="p">
+                    <span className="text-danger"> password:</span> admin
+                  </p>
                   <input
                     type="email"
                     name="email"

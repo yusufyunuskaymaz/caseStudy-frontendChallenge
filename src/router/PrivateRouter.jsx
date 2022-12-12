@@ -5,10 +5,11 @@ import Login from '../components/Login'
 import { LoginContext } from '../context/LoginContext'
 
 const PrivateRouter = () => {
-    const {user} = useContext(LoginContext)
+    let user = JSON.parse(localStorage.getItem("user"))
+    
     return (
         <>
-        { user.email ? <Outlet/> : <Navigate to="/login"/>}
+        { user?.email ? <Outlet/> : <Navigate to="/login"/>}
         </>
       )
 }

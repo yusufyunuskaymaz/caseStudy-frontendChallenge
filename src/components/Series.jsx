@@ -31,31 +31,37 @@ const Series = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
-  
-  const [filteredFilms, setFilteredFilms] = useState("")
+  const [filteredFilms, setFilteredFilms] = useState("");
 
-    // Get current posts
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentFilms = filmData.slice(indexOfFirstPost, indexOfLastPost);
-    const currentFilteredFilms = filteredFilms.slice(indexOfFirstPost, indexOfLastPost)
-  
-    // Change page
-    const paginate = pageNumber => setCurrentPage(pageNumber);
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentFilms = filmData.slice(indexOfFirstPost, indexOfLastPost);
+  const currentFilteredFilms = filteredFilms?.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     fetchData();
   }, []);
 
-
-  const handleSort = (event) => {
+  const handleSort = (event, data) => {
+    console.log(data);
     const options = {
-      "a-z": [...filmData].sort((a, b) => (a.title < b.title ? -1 : 1)),
-      "z-a": [...filmData].sort((a, b) => (a.title < b.title ? 1 : -1)),
-      "1-100": [...filmData].sort((a, b) => a.releaseYear - b.releaseYear),
-      "100-1": [...filmData].sort((a, b) => b.releaseYear - a.releaseYear),
+      "a-z": [...data].sort((a, b) => (a.title < b.title ? -1 : 1)),
+      "z-a": [...data].sort((a, b) => (a.title < b.title ? 1 : -1)),
+      "1-100": [...data].sort((a, b) => a.releaseYear - b.releaseYear),
+      "100-1": [...data].sort((a, b) => b.releaseYear - a.releaseYear),
     };
-    setFilmData(options[event.target.value]);
+    if (filmData.length === 100) {
+      setFilmData(options[event.target.value]);
+    } else {
+      setFilteredFilms(options[event.target.value]);
+    }
   };
 
   const { fav } = useSelector((state) => state.fav);
@@ -68,23 +74,30 @@ const Series = () => {
     }
   };
 
+  const [searchInput, setSearchInput] = useState("");
 
-  const [searchInput, setSearchInput] = useState("")
-
-
-  const handleSearch = () =>{
-    if(!searchInput){
-      alert("Please enter something")
-    }else{
+  const handleSearch = () => {
+    if (!searchInput) {
+      alert("Please enter something");
+    } else {
       const filtered = filmData.filter((film) => {
         return film.title.toLowerCase().includes(searchInput);
-      })
-      setFilteredFilms(filtered)
+      });
+      setFilteredFilms(filtered);
+    }
+  };
+  
+
+  // When search input deleted show all films
+  const onChangeHandle = (e)=>{
+    console.log(e)
+    setSearchInput(e)
+    if(searchInput.length === 1){
+      console.log("evet sifir");
+      setFilmData(filmData)
+      setFilteredFilms("")
     }
   }
-  // console.log(filteredFilms);
-
-
 
   return (
     <div className="container">
@@ -98,9 +111,11 @@ const Series = () => {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Search..."
-                onChange={(e) => setSearchInput(e.target.value)}
+                onChange={(e)=>onChangeHandle(e.target.value)}
               />
-              <button className="btn btn-primary" onClick={handleSearch}>Search</button>
+              <button className="btn btn-primary" onClick={handleSearch}>
+                Search
+              </button>
             </div>
           </div>
         </div>
@@ -109,7 +124,9 @@ const Series = () => {
           <select
             className="form-select"
             aria-label="Default select example"
-            onChange={handleSort}
+            onChange={(e) =>
+              handleSort(e, filteredFilms.length > 0 ? filteredFilms : filmData)
+            }
           >
             <option defaultValue disabled>
               Sort By Name and Date
@@ -131,13 +148,18 @@ const Series = () => {
         </div>
       </div>
       <div className="row py-5">
-        <Posts films={currentFilms} filteredFilms={currentFilteredFilms} fav={fav} addFavs={addFavs} />
-          <Paginate
-                  postsPerPage={postsPerPage}
-                  totalFilms={filmData.length}
-                  filteredTotalFilms={filteredFilms.length}
-                  paginate={paginate}
-               />
+        <Posts
+          films={currentFilms}
+          filteredFilms={currentFilteredFilms}
+          fav={fav}
+          addFavs={addFavs}
+        />
+        <Paginate
+          postsPerPage={postsPerPage}
+          totalFilms={filmData.length}
+          filteredTotalFilms={filteredFilms?.length}
+          paginate={paginate}
+        />
       </div>
     </div>
   );
