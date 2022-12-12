@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeFav, setFav } from "../features/favSlice";
 import Paginate from "./Paginate";
+import Posts from "./Posts";
 
 const Series = () => {
   const navigate = useNavigate();
@@ -26,31 +27,20 @@ const Series = () => {
     }
   };
 
-  // const [blogPosts, setBlogPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
-  // ...
+    // Get current posts
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentFilms = filmData.slice(indexOfFirstPost, indexOfLastPost);
+  
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = filmData.slice(indexOfFirstPost, indexOfLastPost);
 
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
- };
 
- const previousPage = () => {
-  if (currentPage !== 1) {
-     setCurrentPage(currentPage - 1);
-  }
-};
-
-const nextPage = () => {
-  if (currentPage !== Math.ceil(filmData.length / postsPerPage)) {
-     setCurrentPage(currentPage + 1);
-  }
-};
 
   useEffect(() => {
     fetchData();
@@ -139,71 +129,11 @@ const nextPage = () => {
         </div>
       </div>
       <div className="row py-5">
-        {filmData
-          .filter((film) => {
-            return film.title.toLowerCase().includes(searchInput);
-          })
-          //spagetti code
-          // .sort((a, b) => {
-          //   if (filterFilm == "z-a") {
-          //     return a.title > b.title ? -1 : 1;
-          //   } else if (filterFilm == "a-z") {
-          //     return a.title > b.title ? 1 : -1;
-          //   } else if (filterFilm == "1-100") {
-          //     return a.releaseYear - b.releaseYear;
-          //   } else if (filterFilm == "100-1") {
-          //     return b.releaseYear - a.releaseYear;
-          //   }
-          // })
-          .map((film, index) => {
-            return (
-              <div className="col col-lg-2" key={film.id}>
-                <div className="series-box">
-                  <img
-                    height={200}
-                    src={film.images["Poster Art"].url}
-                    alt=""
-                    style={{ opacity: "0.01" }}
-                  />
-                  <p>{film.title}</p>
-                  <div
-                    style={{ width: "80%" }}
-                    className="d-flex align-items-center justify-content-between"
-                  >
-                    <span className="text-danger">
-                      {film.releaseYear} -- {film.id}
-                    </span>
-                    <span>
-                      {!fav.includes(film.id) && (
-                        <i
-                          className="fa-regular fa-star fs-3"
-                          style={{ color: "gold" }}
-                          onClick={() => addFavs(film.id)}
-                          // onMouseOver={()=>console.log(index)}
-                        ></i>
-                      )}
-                    </span>
-                    <span>
-                      {fav.includes(film.id) && (
-                        <i
-                          className="fa-solid fa-star fs-3"
-                          style={{ color: "gold" }}
-                          onClick={() => addFavs(film.id)}
-                          // onMouseOver={()=>console.log(index)}
-                        ></i>
-                      )}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <Posts films={currentFilms} filmData={filmData} searchInput={searchInput} fav={fav} addFavs={addFavs} />
           <Paginate
                   postsPerPage={postsPerPage}
                   totalPosts={filmData.length}
                   paginate={paginate}
-                  previousPage={previousPage}
-                  nextPage={nextPage}
                />
       </div>
     </div>
