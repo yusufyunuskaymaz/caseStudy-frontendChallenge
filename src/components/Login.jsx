@@ -58,6 +58,8 @@ const Login = () => {
                   className="d-flex flex-column align-items-center"
                   onSubmit={handleSubmit}
                 >
+                  <p className="m-0">username: admin@gmail.com</p>
+                  <p className="p">password: admin</p>
                   <input
                     type="email"
                     name="email"

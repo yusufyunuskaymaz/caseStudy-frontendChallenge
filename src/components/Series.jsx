@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeFav, setFav } from "../features/favSlice";
+import Paginate from "./Paginate";
 
 const Series = () => {
   const navigate = useNavigate();
@@ -13,13 +14,43 @@ const Series = () => {
     const url =
       "https://raw.githubusercontent.com/pankod/frontend-challenge/master/feed/sample.json";
     try {
-      axios.get(url).then((res) => setFilmData(res.data.entries.map((film,index)=>{
-        return {...film, id:index+1}
-      })));
+      axios.get(url).then((res) =>
+        setFilmData(
+          res.data.entries.map((film, index) => {
+            return { ...film, id: index + 1 };
+          })
+        )
+      );
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  // const [blogPosts, setBlogPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+
+  // ...
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filmData.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+ };
+
+ const previousPage = () => {
+  if (currentPage !== 1) {
+     setCurrentPage(currentPage - 1);
+  }
+};
+
+const nextPage = () => {
+  if (currentPage !== Math.ceil(filmData.length / postsPerPage)) {
+     setCurrentPage(currentPage + 1);
+  }
+};
 
   useEffect(() => {
     fetchData();
@@ -44,7 +75,7 @@ const Series = () => {
       dispatch(removeFav(id));
     } else if (!fav.includes(id)) {
       dispatch(setFav(id));
-      console.log(fav, "fav")
+      console.log(fav, "fav");
     }
   };
 
@@ -60,7 +91,8 @@ const Series = () => {
   //     setFilterFilm("100-1");
   //   }
   // };
-  console.log(filmData, "burası");
+
+
 
   return (
     <div className="container">
@@ -166,6 +198,13 @@ const Series = () => {
               </div>
             );
           })}
+          <Paginate
+                  postsPerPage={postsPerPage}
+                  totalPosts={filmData.length}
+                  paginate={paginate}
+                  previousPage={previousPage}
+                  nextPage={nextPage}
+               />
       </div>
     </div>
   );

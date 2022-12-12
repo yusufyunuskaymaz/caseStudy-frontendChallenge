@@ -42,7 +42,7 @@ const Footer = () => {
         </div>
         <div className="app-store">
                 <img src={Apple} alt="" />
-                <img src={Microsoft} alt="" />
+                <img height={49} src={Microsoft} alt="" />
                 <img src={playStore} alt="" />
         </div>
       </div>
