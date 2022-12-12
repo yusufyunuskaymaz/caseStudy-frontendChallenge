@@ -1,27 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
-const Posts = ({films, filteredFilms, fav, addFavs}) => {
-    const [newFilm, setNewFilm] = useState([])
+const Posts = ({ films, filteredFilms, fav, addFavs }) => {
 
-    useEffect(() => {
-      setNewFilm(films)
-    }, [])
-    
-
-
-    console.log(filteredFilms, "ff");
-
-    
-    
-    // console.log(!!filteredFilms, "see");
-    // console.log(films, "film see");
-    // console.log(new Boolean(searchInput));
+  const result = filteredFilms ? filteredFilms : films;
 
   return (
     <>
-    { filteredFilms || films
-        
-        ?.map((film, index) => {
+      {result.map((film, index) => {
           return (
             <div className="col col-lg-2" key={film.id}>
               <div className="series-box">
@@ -64,7 +49,7 @@ const Posts = ({films, filteredFilms, fav, addFavs}) => {
             </div>
           );
         })}
-        {/* { films
+      {/* { films
         
           .map((film, index) => {
             return (
@@ -110,7 +95,7 @@ const Posts = ({films, filteredFilms, fav, addFavs}) => {
             );
           })} */}
     </>
-  )
-}
+  );
+};
 
-export default Posts
+export default Posts;

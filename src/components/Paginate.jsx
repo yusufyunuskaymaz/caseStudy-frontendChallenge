@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Paginate = ({ postsPerPage, totalPosts, paginate }) => {
+const Paginate = ({ postsPerPage, totalFilms, filteredTotalFilms, paginate }) => {
+  const total = filteredTotalFilms ? filteredTotalFilms : totalFilms
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(total / postsPerPage); i++) {
     pageNumbers.push(i);
   }
 

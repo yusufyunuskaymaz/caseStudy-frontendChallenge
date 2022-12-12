@@ -61,33 +61,27 @@ const Series = () => {
       dispatch(removeFav(id));
     } else if (!fav.includes(id)) {
       dispatch(setFav(id));
-      console.log(fav, "fav");
     }
   };
 
 
   const [searchInput, setSearchInput] = useState("")
-  const [filteredFilms, setFilteredFilms] = useState()
+  const [filteredFilms, setFilteredFilms] = useState("")
 
 
   const handleSearch = () =>{
     if(!searchInput){
       alert("Please enter something")
     }else{
-      // console.log("vvv")
       const filtered = filmData.filter((film) => {
-        // console.log("deneme2")
         return film.title.toLowerCase().includes(searchInput);
       })
-      // console.log(filtered);
-      // console.log(filmData)
       setFilteredFilms(filtered)
-
-      // console.log(, "filtered");
     }
   }
+  console.log(filteredFilms);
 
-  // console.log(searchInput, "search");
+
 
   return (
     <div className="container">
@@ -137,7 +131,8 @@ const Series = () => {
         <Posts films={currentFilms} filteredFilms={filteredFilms} fav={fav} addFavs={addFavs} />
           <Paginate
                   postsPerPage={postsPerPage}
-                  totalPosts={filmData.length}
+                  totalFilms={filmData.length}
+                  filteredTotalFilms={filteredFilms.length}
                   paginate={paginate}
                />
       </div>
