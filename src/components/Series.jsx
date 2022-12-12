@@ -31,10 +31,14 @@ const Series = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
+  
+  const [filteredFilms, setFilteredFilms] = useState("")
+
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentFilms = filmData.slice(indexOfFirstPost, indexOfLastPost);
+    const currentFilteredFilms = filteredFilms.slice(indexOfFirstPost, indexOfLastPost)
   
     // Change page
     const paginate = pageNumber => setCurrentPage(pageNumber);
@@ -66,7 +70,6 @@ const Series = () => {
 
 
   const [searchInput, setSearchInput] = useState("")
-  const [filteredFilms, setFilteredFilms] = useState("")
 
 
   const handleSearch = () =>{
@@ -79,7 +82,7 @@ const Series = () => {
       setFilteredFilms(filtered)
     }
   }
-  console.log(filteredFilms);
+  // console.log(filteredFilms);
 
 
 
@@ -128,7 +131,7 @@ const Series = () => {
         </div>
       </div>
       <div className="row py-5">
-        <Posts films={currentFilms} filteredFilms={filteredFilms} fav={fav} addFavs={addFavs} />
+        <Posts films={currentFilms} filteredFilms={currentFilteredFilms} fav={fav} addFavs={addFavs} />
           <Paginate
                   postsPerPage={postsPerPage}
                   totalFilms={filmData.length}

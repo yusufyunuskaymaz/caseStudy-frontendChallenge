@@ -6,7 +6,7 @@ const Posts = ({ films, filteredFilms, fav, addFavs }) => {
 
   return (
     <>
-      {result.map((film, index) => {
+      {result?.map((film, index) => {
           return (
             <div className="col col-lg-2" key={film.id}>
               <div className="series-box">
