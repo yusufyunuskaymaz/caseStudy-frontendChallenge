@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeFav, setFav } from "../features/favSlice";
@@ -39,14 +39,10 @@ const Series = () => {
     // Change page
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
-
-
-
   useEffect(() => {
     fetchData();
   }, []);
 
-  const [searchInput, setSearchInput] = useState("");
 
   const handleSort = (event) => {
     const options = {
@@ -69,20 +65,29 @@ const Series = () => {
     }
   };
 
-  // spagetti code example :)
-  // const handleClick = (opt) => {
-  //   if (opt == "z-a") {
-  //     setFilterFilm("z-a");
-  //   } else if (opt == "a-z") {
-  //     setFilterFilm("a-z");
-  //   } else if (opt == "1-100") {
-  //     setFilterFilm("1-100");
-  //   } else if (opt == "100-1") {
-  //     setFilterFilm("100-1");
-  //   }
-  // };
+
+  const [searchInput, setSearchInput] = useState("")
+  const [filteredFilms, setFilteredFilms] = useState()
 
 
+  const handleSearch = () =>{
+    if(!searchInput){
+      alert("Please enter something")
+    }else{
+      // console.log("vvv")
+      const filtered = filmData.filter((film) => {
+        // console.log("deneme2")
+        return film.title.toLowerCase().includes(searchInput);
+      })
+      // console.log(filtered);
+      // console.log(filmData)
+      setFilteredFilms(filtered)
+
+      // console.log(, "filtered");
+    }
+  }
+
+  // console.log(searchInput, "search");
 
   return (
     <div className="container">
@@ -98,18 +103,18 @@ const Series = () => {
                 placeholder="Search..."
                 onChange={(e) => setSearchInput(e.target.value)}
               />
-              <button className="btn btn-primary">Search</button>
+              <button className="btn btn-primary" onClick={handleSearch}>Search</button>
             </div>
           </div>
         </div>
 
         <div className="col-lg-3">
           <select
-            class="form-select"
+            className="form-select"
             aria-label="Default select example"
             onChange={handleSort}
           >
-            <option selected disabled>
+            <option defaultValue disabled>
               Sort By Name and Date
             </option>
             <option value="a-z">Sort By Title A-Z</option>
@@ -129,7 +134,7 @@ const Series = () => {
         </div>
       </div>
       <div className="row py-5">
-        <Posts films={currentFilms} filmData={filmData} searchInput={searchInput} fav={fav} addFavs={addFavs} />
+        <Posts films={currentFilms} filteredFilms={filteredFilms} fav={fav} addFavs={addFavs} />
           <Paginate
                   postsPerPage={postsPerPage}
                   totalPosts={filmData.length}
