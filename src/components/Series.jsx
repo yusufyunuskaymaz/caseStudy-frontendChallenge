@@ -142,7 +142,7 @@ const Series = () => {
       <div className="row">
         <div className="mt-2">
           {/* <button className="btn btn-success me-2"  onClick={() => navigate("/")}>Go Home</button> */}
-          <button className="btn btn-warning" onClick={() => navigate()}>
+          <button className="btn btn-warning" onClick={() => navigate(-1)}>
             Go Back
           </button>
         </div>
