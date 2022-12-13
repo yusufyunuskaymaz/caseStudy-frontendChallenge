@@ -42,6 +42,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="login">
+          <span>{localUser?.email}</span>
           <span className="me-0" type="button" onClick={() => handleSubmit()}>
             {localUser?.email && "Logout"}
           </span>

@@ -2,14 +2,23 @@ import { Formik } from "formik";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../context/LoginContext";
-const Login = () => {
+import { GoogleLogin } from "@react-oauth/google";
+import jwtDecode from "jwt-decode";
 
-  
-  
+const Login = () => {
   const navigate = useNavigate();
   const realUser = { email: "admin@gmail.com", password: "admin" };
 
   const { user, setUser } = useContext(LoginContext);
+
+  const googleLogin = (user) => {
+    const decodedUser = jwtDecode(user.credential);
+    const lsUser = { email: decodedUser.email, password: decodedUser.name };
+    localStorage.setItem("user", JSON.stringify(lsUser));
+    setUser(user)
+    navigate("/home");
+    console.log(decodedUser);
+  };
 
   return (
     <Formik
@@ -105,6 +114,16 @@ const Login = () => {
                   >
                     Submit
                   </button>
+                  <span className="mt-2">
+                  <GoogleLogin
+                    onSuccess={(credentialResponse) => {
+                      googleLogin(credentialResponse);
+                    }}
+                    onError={() => {
+                      console.log("Login Failed");
+                    }}
+                  />
+                  </span>
                 </form>
               </div>
             </div>
