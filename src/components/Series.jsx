@@ -93,7 +93,6 @@ const Series = () => {
     console.log(e)
     setSearchInput(e)
     if(searchInput.length === 1){
-      console.log("evet sifir");
       setFilmData(filmData)
       setFilteredFilms("")
     }
@@ -121,7 +120,7 @@ const Series = () => {
           </div>
         </div>
 
-        <div className="col-lg-3">
+        <div className="col col-lg-3 mt-1">
           <select
             className="form-select"
             aria-label="Default select example"
@@ -143,7 +142,7 @@ const Series = () => {
       <div className="row">
         <div className="mt-2">
           {/* <button className="btn btn-success me-2"  onClick={() => navigate("/")}>Go Home</button> */}
-          <button className="btn btn-warning" onClick={() => navigate(-1)}>
+          <button className="btn btn-warning" onClick={() => navigate()}>
             Go Back
           </button>
         </div>

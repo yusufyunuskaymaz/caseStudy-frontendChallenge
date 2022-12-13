@@ -11,6 +11,7 @@ const Footer = () => {
   return (
     <footer>
       <div className="container">
+        <div className="row">
       <div className="top">
         <ul className="p-0 text-light">
           <li>
@@ -34,7 +35,7 @@ const Footer = () => {
         </ul>
         <p className="">Copyright © 2016 DEMO Streaming. All Rights Reserved.</p>
       </div>
-      <div className="bottom">
+      {/* <div className="bottom">
         <div className="social">
         <img src={Facebook} alt="" />
                 <img src={Twitter} alt="" />
@@ -45,6 +46,7 @@ const Footer = () => {
                 <img height={49} src={Microsoft} alt="" />
                 <img src={playStore} alt="" />
         </div>
+      </div> */}
       </div>
       </div>
       

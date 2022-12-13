@@ -9,7 +9,7 @@ const Post = ({ film, addFavs, fav}) => {
   const handleOpenPortal = () => {
     setIsOpenPortal(true);
   };
-  console.log(film);
+  // console.log(film);
 
   return (
       <div className="col col-lg-2" key={film?.id}>
@@ -26,7 +26,7 @@ const Post = ({ film, addFavs, fav}) => {
               height={200}
               src={film?.images["Poster Art"].url}
               alt=""
-              style={{ opacity: "0.1" }}
+              style={{ opacity: "0.01" }}
             />
           </div>
           <p>{film?.title}</p>
@@ -36,7 +36,7 @@ const Post = ({ film, addFavs, fav}) => {
             className="d-flex align-items-center justify-content-between"
           >
             <span className="text-danger">
-              {film?.releaseYear} -- {film?.id}
+              Year: {film?.releaseYear ? film?.releaseYear : "Not Found" }
             </span>
             <span>
               {!fav?.includes(film?.id) && (
@@ -61,7 +61,7 @@ const Post = ({ film, addFavs, fav}) => {
         <ModalWithPortal
         isOpenPortal={isOpenPortal}
         setIsOpenPortal={setIsOpenPortal}
-        productName={"Pubg"}
+        // productName={"Pubg"}
         film={film}
       />
       </div>

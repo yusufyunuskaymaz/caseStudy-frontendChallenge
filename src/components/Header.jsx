@@ -10,16 +10,7 @@ import { clear } from "../features/favSlice";
 
 
 const Header = () => {
-//   const logout = response => {
-//     window.sessionStorage.removeItem("access_token");
-//      window.sessionStorage.removeItem("nama");
-//      this.setState(state => ({
-//          isLogined: false,
-//          token: ''
-//      }),
-//      console.log(response)
-//      );
-//  }
+
   const { fav } = useSelector((state) => state.fav);
   const dispatch = useDispatch()
   const navigate = useNavigate();
@@ -57,8 +48,8 @@ const Header = () => {
           <span type="button" onClick={() => navigate("/login")}>
             {!localUser?.email && "Login"}
           </span>
-          {fav && <span className="badge bg-success fs-6 me-1">{fav.length}</span>}
-          <i type="button" onClick={()=>handleClear()} className="fa-solid fa-trash-can me-2 text-danger"></i>
+          {fav.length && localUser?.email ? <span className="badge bg-success fs-6 me-1">{fav.length}</span> : null}
+          {localUser?.email && fav.length > 0  ? <i type="button" onClick={()=>handleClear()} className="fa-solid fa-trash-can me-2 text-danger"></i> : null}
           <button id="navbar-start">Start Your Free Trial</button>
         </div>
       </div>
