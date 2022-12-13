@@ -1,13 +1,16 @@
 import { Formik } from "formik";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../context/LoginContext";
-
 const Login = () => {
+
+  
+  
   const navigate = useNavigate();
   const realUser = { email: "admin@gmail.com", password: "admin" };
 
   const { user, setUser } = useContext(LoginContext);
+
   return (
     <Formik
       initialValues={{ email: "", password: "" }}

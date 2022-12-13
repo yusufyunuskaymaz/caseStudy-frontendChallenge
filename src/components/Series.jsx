@@ -100,7 +100,8 @@ const Series = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container" >
+      <span id="ana-div"></span>
       <div className="row mt-4 justify-content-between mb-3">
         <div className="col-lg-3">
           <div className="top-navbar d-flex justify-content-between">
