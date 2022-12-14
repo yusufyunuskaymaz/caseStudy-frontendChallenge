@@ -5,6 +5,7 @@ import { LoginContext } from "../context/LoginContext";
 import { GoogleLogin } from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
 
+
 const Login = () => {
   const navigate = useNavigate();
   const realUser = { email: "admin@gmail.com", password: "admin" };
@@ -19,6 +20,7 @@ const Login = () => {
     navigate("/home");
     console.log(decodedUser);
   };
+
 
   return (
     <Formik
@@ -123,6 +125,7 @@ const Login = () => {
                       console.log("Login Failed");
                     }}
                   />
+            
                   </span>
                 </form>
               </div>
