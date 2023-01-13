@@ -2,7 +2,7 @@
 
 ![Animation](frontend.gif)
 
-🎯 [click here to see page](casestudy-frontend.netlify.app/)
+🎯 [click here to see page](https://casestudy-frontend.netlify.app/)
 ### In this project, I learned;
 
 ✨ React Google Login for login
