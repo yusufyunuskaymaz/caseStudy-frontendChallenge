@@ -1,25 +1,28 @@
 ### This project aims to create multiple pages with React Router.
 
 
-![Animation](https://github.com/clarusway/clarusway-full-stack-tr-12-22/raw/main/react/projects/005-Recipe-App/food-search-app.gif)
-🎯 [click here to see page](https://recipe2app.netlify.app/)
+🎯 [click here to see page](casestudy-frontend.netlify.app/)
 ### In this project, I learned;
 
-✨ React Props
+✨ React Google Login for login
 
-✨ React State Logic
+✨ Formik
 
-✨ React Hooks (useState, useNavigate, useLocation)
+✨ Axios
 
-✨ Destrucring Methods
+✨ Redux
 
-✨ Getting info with Api
+✨ React Portal
+
+✨ React Router
+
+✨ Searching, Filtering, Pagination
 
 ✨ Async-await, Axios
 
 ✨ React Router
 
-✨ Local and Session Storage
+✨ Local Storage
 
 ✨ Deploy with Vercel
 
