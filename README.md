@@ -1,5 +1,6 @@
 ### This project aims to create multiple pages with React Router.
 
+![Animation](frontend.gif)
 
 🎯 [click here to see page](casestudy-frontend.netlify.app/)
 ### In this project, I learned;
