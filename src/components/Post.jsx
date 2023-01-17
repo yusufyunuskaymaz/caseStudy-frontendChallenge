@@ -26,7 +26,7 @@ const Post = ({ film, addFavs, fav}) => {
               height={200}
               src={film?.images["Poster Art"].url}
               alt=""
-              style={{ opacity: "0.01" }}
+              style={{ opacity: "0.7" }}
             />
           </div>
           <p>{film?.title}</p>
