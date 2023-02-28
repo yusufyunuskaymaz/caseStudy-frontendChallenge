@@ -4,8 +4,7 @@ import removeFav from "../features/favSlice"
 
 const store = configureStore({
     reducer:{
-        fav: favReducer,
-        remove:removeFav
+        fav: favReducer
     }
 })
 
