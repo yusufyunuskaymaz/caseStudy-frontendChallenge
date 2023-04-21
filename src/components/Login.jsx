@@ -20,6 +20,35 @@ const Login = () => {
     navigate("/home");
     console.log(decodedUser);
   };
+  
+  const deneme = () => {
+  const username = '365';
+const password = '1';
+const loginUrl = 'https://api.baubuddy.de/index.php/login';
+const loginData = JSON.stringify({username, password});
+const loginHeaders = {
+  'Authorization': 'Basic QVBJX0V4cGxvcmVyOjEyMzQ1NmlzQUxhbWVQYXNz',
+  'Content-Type': 'application/json'
+};
+const loginOptions = {
+  headers: loginHeaders,
+  data: loginData
+};
+
+axios.post(loginUrl, loginOptions)
+  .then(response => {
+
+    console.log(response,"buraa");
+    
+  })
+  .then(response => {
+    const data = response.data;
+    // Process the data and create the table
+  })
+  .catch(error => console.error(error));
+  }
+  
+  deneme()
 
 
   return (
